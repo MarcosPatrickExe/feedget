@@ -1,45 +1,41 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Widget } from './components/widget';
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+interface ButtonProps {
+   text?: string // '?' define um atributo com valor opcional 
 }
 
-export default App
+function Botao ( propriedades : ButtonProps ){
+     return (
+        <div>
+            <button className="bg-[#8257e6] px-4 h-10 rounded">
+              {propriedades.text ?? 'default'}
+            </button> 
+        </div>
+      );
+}
+
+function Botao2 ( {text} : ButtonProps ){
+     return <button className="cor-botao">{text ?? 'botao default'}</button>
+}
+
+
+function App() {
+    //const [count, setCount] = useState(0)
+
+    return (
+      <div>
+           <Widget />
+      </div>
+       /* <div className="flex gap-2">
+            <h1> Hellow world!!</h1>
+            <Botao text="botao 1" />
+            <Botao text="botao 2" />
+            <Botao2 /> 
+        
+          </div>
+       */
+    )
+}
+
+export default App;

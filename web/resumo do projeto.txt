@@ -19,3 +19,65 @@ arquivos JS compreensíveis pelo navegador.
 
 npm install (para instalar os modulos)
 
+npm run dev (para rodar a aplicacao)
+
+
+=> Em seguida instale a ferramenta tailwind:
+npm install -D tailwindcss
+
+ou entao, sugerido:
+
+npm install -D tailwindcss postcss autoprefixer
+
+
+=> Depois inicialize o tailwind pra q ele crie o arquivo "tailwind.config.js":
+npx tailwindcss init
+
+=> Configure o arquivo criado automaticamente com a seguinte estrutura:
+module.exports = {
+  content: ["./src/**/*.tsx"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+
+=> Logo depois instale o tailwindcss junto com o postcss, o qual
+é uma ferramenta de observação conversão de arquivos css que o
+browser possa compreender. Integrasse com o vite quando instalado:
+npx tailwindcss init -p
+
+
+**OBS: todas as classes do tailwind utilizam a unidade de medida
+'rem' q é relativa ao tamanho da fonte do navegador do usuario
+
+
+=>Adicione a biblioteca de icones:
+npm install phosphor-react
+
+
+=>Adicionando nova propriedade de cor:
+extend: {}
+
+faz assim para criar uma nova cor chamada "brand" com peso 500:
+
+extend: {
+   colors: {
+   	brand: {
+		500: '#8257e6',
+	}
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
