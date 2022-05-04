@@ -1,0 +1,21 @@
+
+npm create vite@latest
+
+(esse comando permite vc selecionar que tipo de framework
+vc ira utilizar no front, criando a estrutura básica logo
+em seguida. O vite é ferramenta que permite o browser reconhecer
+novas versões do JS )
+
+O webpack faz o processo de bundle. 
+Unir os codigos JS e converter em um unico 
+arquivo.
+
+O babel converte a versão do JS para que os
+browser compreendam o JS para um formato conhecido.
+
+Basicamente o Vite substitui o webpack pois faz uso
+do "ESMODULE", a sintaxe necessaria para importar
+arquivos JS compreensíveis pelo navegador.
+
+npm install (para instalar os modulos)
+
