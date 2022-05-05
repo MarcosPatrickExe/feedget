@@ -72,6 +72,16 @@ extend: {
 
 
 
+Componentes de acessibilidade para interação do
+usuario:
+- Reakit
+- Radix
+- Headless (já compativel com o tailwind)
+É possivel utilizar esses componentes para 
+aumentar a acessibilidade, no quesito de abrir
+e fechar popover's com a tecla de espaço, passar 
+entre eles utilizando o 'tab'....
+
 
 
 
