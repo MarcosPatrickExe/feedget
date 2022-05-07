@@ -81,22 +81,20 @@ export function WidgetForm(){
 
 
     return(
-         <div className="bg-zine-900 p-4 relative rounded-2xl mb-5 flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
+        <div className="bg-zine-900 p-4 relative rounded-2xl mb-5 flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
                
-                { (!feedback) ? (
-                      <FeedbackTypeStep onFeedbackChanged={setFeedback} />
-
-                   ) : (
-                       
-                      <FeedbackContentStep restartFeedback={restartFeedback}  feedbackType={feedback} />
-                        /*  <p className="text-yellow-400 py-4">Obrigado pelo seu Feedback :)</p>   */
-                    )
-                }
+            { (!feedback) ? (
+                    <FeedbackTypeStep onFeedbackChanged={setFeedback} />
+                ) : (
+                    <FeedbackContentStep restartFeedback={restartFeedback}  feedbackType={feedback} />
+                    /*  <p className="text-yellow-400 py-4">Obrigado pelo seu Feedback :)</p>   */
+                )
+            }
 
 
-                <footer className="text-xs text-neural-400">
-                    Feito com amor pela <a className="underline underline-offset-1" href="https://rocketseat.com.br"> Rocketseat </a>
-                </footer>
+            <footer className="text-xs text-neural-400">
+                Feito com amor pela <a className="underline underline-offset-1" href="https://rocketseat.com.br"> Rocketseat </a>
+            </footer>
         </div>
     );
 }
