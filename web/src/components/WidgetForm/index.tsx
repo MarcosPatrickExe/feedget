@@ -79,7 +79,6 @@ export function WidgetForm(){
         setFeedback(null);
     }
 
-
     return(
         <div className="bg-zine-900 p-4 relative rounded-2xl mb-5 flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
                

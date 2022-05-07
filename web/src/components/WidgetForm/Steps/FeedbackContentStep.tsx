@@ -1,8 +1,9 @@
-
 import { CloseButton } from '../../closeButton';
-import { FeedbackType } from '../index';
+import { FeedbackType } from '../index'; // OU: '..'
 import { feedbackTypes } from '..';// importando objeto com os icones em SVGs e seus respectivos titulos
 import { ArrowLeft } from 'phosphor-react';
+import { ScreenshotButton } from '../ScreenshotButton';
+import { useState } from 'react';
 
 
 interface ItypeFeedback {
@@ -12,6 +13,7 @@ interface ItypeFeedback {
 
 export function FeedbackContentStep( { feedbackType, restartFeedback } : ItypeFeedback){
 
+    const [screenshot, setScreenshot] = useState<string | null>(null);
     const feedbackSelected = feedbackTypes[feedbackType];
 
     return (
@@ -28,10 +30,9 @@ export function FeedbackContentStep( { feedbackType, restartFeedback } : ItypeFe
 
 
                                  {/* Line-height = leading */}
-                <span className="ml-7 text-xl leading-6 flex items-center gap-2">
-                   
-                    <img src={feedbackSelected.image.source} alt={feedbackSelected.image.alt} className="h-6 w-6" />
+                <span className="ml-12 pl-12 text-xl leading-6 flex flex-row items-center  gap-2">
                     {feedbackSelected.title}
+                    <img src={feedbackSelected.image.source} alt={feedbackSelected.image.alt} className="h-6 w-6" />
                 </span>
 
 
@@ -62,7 +63,27 @@ export function FeedbackContentStep( { feedbackType, restartFeedback } : ItypeFe
                       placeholder="Conte com detalhes...." />
             
                     <footer className="flex gap-2 mt-2">
-                          <button type="submit" className="bg-brand-500 rounded-md border-transparent flex-1 flex justify-center itens-center py-2 text-xl hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-brand-500">
+                          <ScreenshotButton screenshotFunction={setScreenshot} screenshot={screenshot}/>
+
+                          <button 
+                               type="submit" 
+                               className="bg-brand-500 
+                                            rounded-md 
+                                            border-transparent 
+                                            flex-1 
+                                            flex 
+                                            justify-center 
+                                            itens-center 
+                                            py-2 
+                                            text-xl 
+                                            hover:bg-brand-300 
+                                            focus:outline-none 
+                                            focus:ring-2 
+                                            focus:ring-offset-2 
+                                            focus:ring-offset-zinc-900 
+                                            focus:ring-brand-500
+                                            transition-colors
+                                            ">
                                 Enviar FeedBack
                           </button>
                     </footer>
