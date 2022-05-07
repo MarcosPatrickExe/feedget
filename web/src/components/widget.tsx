@@ -1,6 +1,6 @@
 import { ChatTeardropDots } from 'phosphor-react';
 import { Popover } from '@headlessui/react';
-import { WidgetForm } from './widgetForm';
+import { WidgetForm } from './WidgetForm';// é possível importar o componente 'index' dentro da pasta 'WidgetForm' apenas dando o nome da pasta q ele pertence
 
 export function Widget (){
 /*  const [isWidgetOpen, setIsWidgetOpen] = useState(false); // Fazendo a desestruturação

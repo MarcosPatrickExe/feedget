@@ -1,10 +1,14 @@
-import { CloseButton } from './closeButton';
-import BugIcon from '../assets/Bug.svg';
-import IdeaIcon from '../assets/Idea.svg';
-import ThoughtIcon from '../assets/Thought.svg';
-import {useState} from 'react';
+import { CloseButton } from '../closeButton';
+import BugIcon from '../../assets/Bug.svg';
+import IdeaIcon from '../../assets/Idea.svg';
+import ThoughtIcon from '../../assets/Thought.svg';
+import { useState } from 'react';
 
-const feedbackTypes = {
+import { FeedbackContentStep } from './Steps/FeedbackContentStep';
+
+import { FeedbackTypeStep } from './Steps/FeedbackTypeStep'
+
+export const feedbackTypes = {
     BUG: {
         title: 'Problema',
         image: {
@@ -28,7 +32,7 @@ const feedbackTypes = {
     }
 }
 
-type FeedbackType = keyof typeof feedbackTypes; 
+export type FeedbackType = keyof typeof feedbackTypes; 
 // pegando os tipos possiveis que um feedback pode apresentar
 
 /*
@@ -71,32 +75,22 @@ export function WidgetForm(){
 
     const [feedback, setFeedback] = useState <FeedbackType | null>(null);
 
+    function restartFeedback(){
+        setFeedback(null);
+    }
+
+
     return(
-    
          <div className="bg-zine-900 p-4 relative rounded-2xl mb-5 flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
-                <header>                    {/* Line-height = leading */}
-                    <span className="text-xl leading-6">Deixe seu comentario</span>
-                    <CloseButton />
-                </header>
-                
+               
+                { (!feedback) ? (
+                      <FeedbackTypeStep onFeedbackChanged={setFeedback} />
 
-                { !feedback ? (
-
-                    <div className="flex py-8 gap-2 w-full items-center"> 
-                        { Object.entries(feedbackTypes)// CONVERTENDO ATRIBUTOS DO OBJETO EM VETOR
-                            .map( ([key, value])=>{
-
-                                    return (
-                                        <button onClick={ ()=>{ setFeedback(key as FeedbackType )}} key={key} className="bg-zinc-800 rounded-lg py-5 w-24 flex-1 flex flex-col items-center gap-2 border-2 border-transparent hover:border-brand-500 focus:border-brand-500  focus:outline-none" type="button"> 
-                                            <img src={value.image.source} alt={value.image.alt}  />
-                                            <span>{value.title}</span> 
-                                        </button>
-                                    ) 
-                            })
-                        }
-                    </div>
-
-                    ) : (<p className="text-yellow-400 py-4">Obrigado pelo seu Feedback :)</p>)
+                   ) : (
+                       
+                      <FeedbackContentStep restartFeedback={restartFeedback}  feedbackType={feedback} />
+                        /*  <p className="text-yellow-400 py-4">Obrigado pelo seu Feedback :)</p>   */
+                    )
                 }
 
 
