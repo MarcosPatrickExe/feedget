@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model Feedback {
+    id String @id @default(uuid()) // uuid = Universal Unique ID
+   
+    type       String
+    comment    String
+    screenshot String? //o '?' define q a coluna pode ser "nullable"
+  
+//  id String @id  // @id define q a coluna "id" será uma Primary Key
+    // o 'id' pode ser declarado 
+
+//  id Int @id @default(autoincrement())
+    // o 'id' tbm poderia ser definido como a expressão acima
+    
+
+    //type @db.VarChar(200)
+
+    @@map("feedbacks")//nome da tabela que sera criada no banco
+}

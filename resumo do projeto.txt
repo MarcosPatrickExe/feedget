@@ -97,21 +97,135 @@ npm i typescript @types/node ts-node-dev -D
 **(@types/node) é um pacote que contém todas as tipagens
 especificas do ecossistema NodeJS. 
 
-**(ts-node-dev) funciona como o Nodemon, porém, é integrado
-automaticamente com o typescript
+**(ts-node-dev) funciona como o Nodemon, porém, já vem
+integrado com o typescript
 
 
-=>Com o typescript instalado execute o 
-comando abaixo para que o arquivo de 
-configuração (tsconfig.json) do TS seja criado:
+=>Com o typescript instalado execute o comando abaixo para que 
+o arquivo de configuração (tsconfig.json) do TS seja criado:
 
 npx typescript --init (ou "npx tsc --init")
 
 
+=>No arquivo criado descomente os seguintes comandos:
+"rootDir": "./src"  (diretorio onde se encontram os arquivos do TS que serao transpilados)
+"target": "es2020"  (aqui indica q o typescript será transpilado para o JS mais recente)
+"outDir": "./dist"  (essa pasta irá receber os arquivos JS gerados após a transpilação do arquivo TS)
+
+
+=>Para transpilar o arquivo "server.ts" para o modo JS,
+dentro da pasta "dist", basta executar:
+
+npx tsc
+
+
+
+=> Para fazer o setup do "ts-node-dev" basta ir em "package.json"
+e adicionar a seguinte propriedade abaixo dentro de "scripts":
+
+"dev":"ts-node-dev src/server.ts" 
+
+**Ao rodar "npm run dev" a transpilação do arquivo "server.ts"
+será transpilada para a versao JS 2020 e só assim, será executada;
 
 
 
 
+=> Instale o Express para que seja possivel executar as rotas:
+
+npm i express
+
+
+
+=> Por padrão o pacote do Express não utiliza TypeScript. Assim, convém
+instalar o pacote "@types/express" atraves do comando:
+
+npm i -D @types/express (ou entao use "npm i --save-dev @types/express")
+
+
+========= CONFIGURANDO BANCO DE DADOS SQLite como open source==============
+
+=> SQLite salva o banco de dados como arquivo fisico sem necessariamente
+um banco de verdade;
+
+
+=> Prisma será necessário para gerenciar o banco atraves de um metodo
+ORM (Object-Relational Model), previnindo que se escreva query SQLs tradicionais.
+O Prisma suporta muitos tipos de bancos de dados (ex: PostgreSQL, MySQL, SQLite, MongoDB, SQL server e CockroachDB) 
+e que caso se queira mudar o tipo de banco ao realizar a transicao
+entre a fase de desenvolvimento e produção, não haverá problema algum!
+
+
+=> Instale o pacote do prisma em desenvolvimento:
+npm i prisma -D
+
+=> Instale o pacote do prisma para produção:
+npm i @prisma/client
+
+=> Logo depois inicialize o prisma com:
+npx prisma init
+
+** Depois do comando de inicialiação do prima
+será criada uma pasta "prisma", um ".gitignore" e 
+um arquivo ".env" (onde serão armazenadas as variaveis 
+de ambiente dependendo do ambiente/servidor
+de onde nossa aplicacao esta executando. Ex: se
+estou em ambiente de desenvolvimento, a URL de acesso
+banco vai ser uma, enquanto que se estiver em ambiente 
+de produção, ela será outra)
+
+**para indicar que deve-se utilizar o SQLite
+deve-se ir ao arquivo "schema.prisma" q se encontra
+dentro da pasta "prisma" e colar:
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+**no arquivo ".env" retire a expressao:
+"postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
+
+e cole:
+"file:./dev.db"
+
+
+=> Tbm é possivel baixar a extensão do Prisma para que ocorra
+o highlight da sua sintaxe de modelação de base de dados, q posterioremente,
+podera ser convertida para os mais diversos tipo de bancos.
+
+=>Para criar a tabela definida no arquivo de extensao ".prisma"
+deve-se executar o seguinte comando caso esteja no modo de desenvolvimento:
+
+npx prisma migrate dev 
+
+=>Ao rodar o comando acima será solicitado ainda no CMD o nome
+da migration, ou seja, da ultima alteração q vc realizou no arquivo
+com extensao "prisma", podendo ser por exemplo: "create a table of feedbacks ".
+Depois de definido o nome da migration serão criados dois arquivos:
+"dev.db" e "dev.db-journal". Para ver as tabelas criadas por uma interface
+ja embutida no prisma execute: 
+"npx prisma studio"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"SnowFlake ID" (do Twitter) - IDs sao gerados baseados no tempo(milissegundo atual)
 
 
 
