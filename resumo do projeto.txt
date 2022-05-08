@@ -85,6 +85,35 @@ entre eles utilizando o 'tab'....
 
 
 
+=========================== BACKEND ============================
+
+=>Para inicializar um projeto nodejs e para poder instalar os pacotes rode o seguinte comando:
+npm init -y
+
+=>Depois instale os seguintes pacotes:
+npm i typescript @types/node ts-node-dev -D
+
+
+**(@types/node) é um pacote que contém todas as tipagens
+especificas do ecossistema NodeJS. 
+
+**(ts-node-dev) funciona como o Nodemon, porém, é integrado
+automaticamente com o typescript
+
+
+=>Com o typescript instalado execute o 
+comando abaixo para que o arquivo de 
+configuração (tsconfig.json) do TS seja criado:
+
+npx typescript --init (ou "npx tsc --init")
+
+
+
+
+
+
+
+
 
 
 
