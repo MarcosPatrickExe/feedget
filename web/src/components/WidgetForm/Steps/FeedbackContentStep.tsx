@@ -1,20 +1,31 @@
 import { CloseButton } from '../../closeButton';
-import { FeedbackType } from '../index'; // OU: '..'
+import { FeedbackType } from '../index'; // OU '..'
 import { feedbackTypes } from '..';// importando objeto com os icones em SVGs e seus respectivos titulos
 import { ArrowLeft } from 'phosphor-react';
 import { ScreenshotButton } from '../ScreenshotButton';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 
 interface ItypeFeedback {
-    feedbackType : FeedbackType;
-    restartFeedback: () => void;
+    feedbackType : FeedbackType
+    restartFeedback: () => void //funcao q altera as telas
+    onFeedbackSent: () => void //funcao que é chamada quando um feedback é enviado
 }
 
-export function FeedbackContentStep( { feedbackType, restartFeedback } : ItypeFeedback){
+    // COMPONENTE DE ONDE SERÃO EXIBIDAS OS TIPOS DE FEEDBACKs DISPONIVEIS PARA ESCOLHER!
+export function FeedbackContentStep( { feedbackType, restartFeedback, onFeedbackSent } : ItypeFeedback){
 
-    const [screenshot, setScreenshot] = useState<string | null>(null);
-    const feedbackSelected = feedbackTypes[feedbackType];
+    const feedbackSelected = feedbackTypes[feedbackType];// CAPTURANDO O TIPO DE FEEDBACK SELECIONADO
+    const [ screenshot, setScreenshot] = useState<string | null>(null);
+    const [ comment, setComment ] = useState('');
+
+    function sendFeedback(event : FormEvent){// O TIPO "FormEvent" FOI IMPORTADO DIRETAMENTE DO REACT
+        event.preventDefault();
+    // Previnindo q o evento de atualizar tela após envio do formulário ocorra, uma vez q isso já ocorre por padrão!
+
+        console.log({screenshot, comment});
+        onFeedbackSent();//função q envia o feedback e a tela muda
+    }
 
     return (
         <>
@@ -40,10 +51,13 @@ export function FeedbackContentStep( { feedbackType, restartFeedback } : ItypeFe
             </header>
 
 
-            <form className="my-4 w-full">
-                <textarea 
+            <form onSubmit={sendFeedback} className="my-4 w-full">
+                    <textarea 
+                       onChange={ event=>{setComment(event.target.value)} }
+                       placeholder="Conte com detalhes...."
                        className="min-w-[304px] 
-                                  w-full min-h-[112px] 
+                                  w-full 
+                                  min-h-[112px] 
                                   text-sm 
                                   placeholder-zinc-400 
                                   text-zinc-100 
@@ -58,14 +72,14 @@ export function FeedbackContentStep( { feedbackType, restartFeedback } : ItypeFe
                                   scrollbar
                                   scrollbar-thumb-zinc-700
                                   scrollbar-track-transparent
-                                  scrollbar-thin
-                                  " 
-                      placeholder="Conte com detalhes...." />
+                                  scrollbar-thin" 
+                    />
             
                     <footer className="flex gap-2 mt-2">
                           <ScreenshotButton screenshotFunction={setScreenshot} screenshot={screenshot}/>
 
                           <button 
+                               disabled= { comment.length==0 }
                                type="submit" 
                                className="bg-brand-500 
                                             rounded-md 
@@ -83,6 +97,8 @@ export function FeedbackContentStep( { feedbackType, restartFeedback } : ItypeFe
                                             focus:ring-offset-zinc-900 
                                             focus:ring-brand-500
                                             transition-colors
+                                            disabled:opacity-50
+                                           disabled:hover:bg-brand-500
                                             ">
                                 Enviar FeedBack
                           </button>

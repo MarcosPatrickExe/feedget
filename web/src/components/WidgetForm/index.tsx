@@ -1,12 +1,13 @@
-import { CloseButton } from '../closeButton';
+//import { CloseButton } from '../closeButton';
 import BugIcon from '../../assets/Bug.svg';
 import IdeaIcon from '../../assets/Idea.svg';
 import ThoughtIcon from '../../assets/Thought.svg';
 import { useState } from 'react';
-
 import { FeedbackContentStep } from './Steps/FeedbackContentStep';
-
 import { FeedbackTypeStep } from './Steps/FeedbackTypeStep'
+import { Heart } from 'phosphor-react';
+import { FeedbackSuccessStep } from './Steps/FeedbackSuccessStep';
+
 
 export const feedbackTypes = {
     BUG: {
@@ -73,26 +74,40 @@ export type FeedbackType = keyof typeof feedbackTypes;
 
 export function WidgetForm(){
 
-    const [feedback, setFeedback] = useState <FeedbackType | null>(null);
+    const [feedback, setFeedbackType] = useState <FeedbackType | null>(null);
+    const [feedbackSent, setFeedbackSent] = useState(false);
 
     function restartFeedback(){
-        setFeedback(null);
+        setFeedbackType(null);// O valor 'null' corresponde à 'false'
+        setFeedbackSent(false);
     }
+
 
     return(
         <div className="bg-zine-900 p-4 relative rounded-2xl mb-5 flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
                
-            { (!feedback) ? (
-                    <FeedbackTypeStep onFeedbackChanged={setFeedback} />
-                ) : (
-                    <FeedbackContentStep restartFeedback={restartFeedback}  feedbackType={feedback} />
-                    /*  <p className="text-yellow-400 py-4">Obrigado pelo seu Feedback :)</p>   */
-                )
+            { (feedbackSent) ? (
+                    <FeedbackSuccessStep restartFeedback={restartFeedback} />
+              ) : (
+                <>
+                    {(!feedback) ? (
+                            <FeedbackTypeStep onFeedbackChanged={setFeedbackType} />
+                    
+                        ) : (
+                            <FeedbackContentStep 
+                                    restartFeedback={restartFeedback} 
+                                    feedbackType={feedback} 
+                                    onFeedbackSent={ ()=>setFeedbackSent(true)  }
+                            />
+                            /*  <p className="text-yellow-400 py-4">Obrigado pelo seu Feedback :)</p>   */
+                    )}
+                </>
+              )
             }
 
 
-            <footer className="text-xs text-neural-400">
-                Feito com amor pela <a className="underline underline-offset-1" href="https://rocketseat.com.br"> Rocketseat </a>
+            <footer className="text-xs flex items-center gap-2 text-neural-400">
+                Feito com amor <Heart weight="fill"/> pela <a className="underline underline-offset-1" href="https://rocketseat.com.br"> Rocketseat </a>
             </footer>
         </div>
     );
